@@ -24,7 +24,7 @@ function setup() {
  }
 
 }
-function mouseDragged(){
+function mouseClicked(){
   let col = floor(mouseX/w);
   let row = floor(mouseY/w);
 
@@ -59,22 +59,29 @@ function draw() {
       //du skal kun gøre noget hvis nuværende state er fyldt
      if (grid[i][j]==1){
 
-      //hvis nuværende state er hvid skal du kun gøre noget hvis feltet nedenunder er fyldt og ikke går udover kanten
-      if(grid[i][j+1]===0 && j< rows-1){
-      nextGrid[i][j+1]=1;  
-      }
-      //ellers går vi ud fra det var fyldt i forvejen og så skal vi træffe beslutninge om hvilken side det skal falde til
-      else{
+      //hvis den nedenunder er fri, så fyld den ud
+       if(grid[i][j+1]===0 && j< rows-1){
 
-        //er den til venstre fyldt?
-        if (grid[i-1][j]==0){ 
+        
+        nextGrid[i][j+1]=1;  
       
-            nextGrid[i-1][j]=1 
-          
+      }
+       else{
+       let belowL=grid[i-1][j+1];
+       let belowR=grid[i+1][j+1];
+
+        if (belowL==0 && i-1>0){
+      
+          nextGrid[i-1][j+1]=1;
         }
         
-        nextGrid[i][j]=1
-      }
+       
+          
+            nextGrid[i][j]=1
+          
+        }
+
+        
      }
     }
    }
